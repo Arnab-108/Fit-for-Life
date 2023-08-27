@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-e-j$(0^r3(na09i&86q&&f7al5!f-zb6g5rg&mmc=!(ofh$yam
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost','exp']
 
 
 # Application definition
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'fitapp'
+    'fitapp',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +51,34 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Place CorsMiddleware here
 ]
+
+CORS_ALLOW_METHODS = (
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+)
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'Content-Type',
+    'Authorization',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-crsftoken',
+    'x-requested-with',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8081',
+]
+
 
 ROOT_URLCONF = 'FitforLife.urls'
 
