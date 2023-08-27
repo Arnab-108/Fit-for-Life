@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, SafeAreaView , Picker } from 'react-native';
 import { Stack, useRouter } from 'expo-router'
 import axios from 'axios';
 
@@ -9,6 +9,7 @@ const Signup = () => {
   const [username, setUsername] = useState('')
   const [location, setLocation] = useState('')
   const [age, setAge] = useState('')
+  const [gender, setGender] = useState('')
   const router = useRouter()
   const handleSignup = async () => {
     try {
@@ -18,6 +19,7 @@ const Signup = () => {
         username,
         location,
         age,
+        gender,
       });
 
       alert('Signup success:', response.data);
@@ -26,6 +28,7 @@ const Signup = () => {
       setAge("")
       setUsername("")
       setLocation("")
+      setGender("")
     } catch (error) {
       console.error('Signup error:', error);
     }
@@ -73,6 +76,16 @@ const Signup = () => {
           value={age}
           style={styles.input}
         />
+        <Picker
+          selectedValue={gender}
+          onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
+          style={styles.input}
+        >
+          <Picker.Item label="Select Gender" value="" />
+          <Picker.Item label="Male" value="Male" />
+          <Picker.Item label="Female" value="Female" />
+          <Picker.Item label="Others" value="Others" />
+        </Picker>
 
         <Button title="Signup" onPress={handleSignup} />
 

@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_jwt.settings import api_settings
+from rest_framework.permissions import IsAuthenticated
 from .models import User
-
 
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
@@ -23,14 +23,14 @@ class SignupView(APIView):
         password = request.data.get('password')
         age = request.data.get('age')
         location = request.data.get('location')
-
+        gender = request.data.get('gender')
         # Check if username, password, and age are provided
         if not username or not password or not age or not email:
             return Response({'error': 'Username, password, age and email are required fields.'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             # Create a new user instance
-            user = User(username=username , email=email , age=age, location=location)
+            user = User(username=username , email=email , age=age, location=location , gender = gender)
             # Hash and set the user's password
             user.set_password(password)
             # Save the user instance to the database
@@ -57,8 +57,6 @@ class LoginView(APIView):
             payload = {
                 'user_id': user_id_str,
                 'username': user.username,
-                'age': user.age,
-                'location':user.location
                 # Add any other user-related information here
             }
 
@@ -66,8 +64,23 @@ class LoginView(APIView):
             # Encode the payload to generate a JWT token
             token = jwt_encode_handler(payload)
 
-            return Response({'msg':"Login Successful!",'token': token}, status=status.HTTP_200_OK)
+            return Response({'msg':"Login Successful!",'token': token , 'info':payload}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid email or password.'}, status=status.HTTP_401_UNAUTHORIZED)
         
 # ....................................................................Authorization..............................................................................
+
+class UserDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+    print(permission_classes)
+    def get(self, request):
+        print("UserDetailView GET method reached.")
+        user = request.user
+        data = {
+            'user_id': str(user.id),
+            'username': user.username,
+            'age': user.age,
+            'location': user.location,
+            'gender': user.gender,
+        }
+        return Response(data, status=status.HTTP_200_OK)
