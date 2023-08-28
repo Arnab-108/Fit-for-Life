@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Stack , useRouter } from 'expo-router'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [state , setState] = useState(false)
   const router = useRouter()
   const handleLogin = async () => {
     try {
@@ -17,13 +19,16 @@ const Login = () => {
       alert('Login successful:', response.data);
       console.log(response.data.token)
       console.log(response)
+      AsyncStorage.setItem("id" , response.data.info.user_id)
       setEmail("")
       setPassword("")
+      router.push(`/Home`)
     } catch (error) {
       console.error('Signup error:', error);
     }
   };
 
+  
   return (
     <SafeAreaView>
         <View style={styles.container}>

@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponse,JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_jwt.settings import api_settings
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
 from .models import User
 
 
@@ -70,17 +70,38 @@ class LoginView(APIView):
         
 # ....................................................................Authorization..............................................................................
 
-class UserDetailView(APIView):
-    permission_classes = [IsAuthenticated]
-    print(permission_classes)
-    def get(self, request):
-        print("UserDetailView GET method reached.")
-        user = request.user
+@api_view(['GET', 'PATCH'])
+def user_detail(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
         data = {
             'user_id': str(user.id),
             'username': user.username,
             'age': user.age,
             'location': user.location,
             'gender': user.gender,
+            # Add any other user-related information here
         }
         return Response(data, status=status.HTTP_200_OK)
+    
+    elif request.method == 'PATCH':
+        new_username = request.data.get('username')
+        new_age = request.data.get('age')
+        new_location = request.data.get('location')
+        new_gender = request.data.get('gender')
+        
+        if new_username:
+            user.username = new_username
+        if new_age:
+            user.age = new_age
+        if new_location:
+            user.location = new_location
+        if new_gender:
+            user.gender = new_gender
+        
+        user.save()
+        return Response({'message': 'User details updated successfully.'}, status=status.HTTP_200_OK)
