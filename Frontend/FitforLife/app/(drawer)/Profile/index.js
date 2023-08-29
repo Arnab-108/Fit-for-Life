@@ -105,6 +105,9 @@ const Profile = () => {
         <Card style={styles.card}>
           <Card.Content>
             {/* Use data properties conditionally */}
+            {data && data.email && (
+              <Paragraph style={styles.info}><Text style={styles.gender}>Email:</Text> {data.email}</Paragraph>
+            )}
             {data && data.gender && (
               <Paragraph style={styles.info}><Text style={styles.gender}>Gender:</Text> {data.gender}</Paragraph>
             )}

@@ -1,34 +1,34 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, SafeAreaView, Picker } from 'react-native';
-import ModalDropdown from 'react-native-modal-dropdown';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, SafeAreaView , Picker } from 'react-native';
 import { Stack, useRouter } from 'expo-router'
 import axios from 'axios';
+import ModalDropdown from 'react-native-modal-dropdown';
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('')
-  const [location, setLocation] = useState('')
+  const [name, setName] = useState('')
+  const [contact_number, setContact] = useState('')
   const [age, setAge] = useState('')
   const [gender, setGender] = useState('')
-  const genderOptions = ['Select Gender', 'Male', 'Female', 'Others'];
   const router = useRouter()
+  const genderOptions = ['Select Gender', 'Male', 'Female', 'Others'];
   const handleSignup = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/signup/', {
+      const response = await axios.post('http://127.0.0.1:8000/api/signuptrainer/', {
         email,
         password,
-        username,
-        location,
+        name,
+        contact_number,
         age,
         gender,
       });
 
-      alert('Signup successfull!');
+      alert('Signup success:', response.data);
       setEmail("")
       setPassword("")
       setAge("")
-      setUsername("")
-      setLocation("")
+      setName("")
+      setContact("")
       setGender("")
     } catch (error) {
       console.error('Signup error:', error);
@@ -48,11 +48,11 @@ const Signup = () => {
         }}
       />
       <View style={styles.container}>
-        <Text style={styles.header}>Signup</Text>
+        <Text style={styles.header}>Trainer Signup</Text>
         <TextInput
-          placeholder="Username"
-          onChangeText={text => setUsername(text)}
-          value={username}
+          placeholder="Trainer Name"
+          onChangeText={text => setName(text)}
+          value={name}
           style={styles.input}
         />
         <TextInput
@@ -69,9 +69,9 @@ const Signup = () => {
           style={styles.input}
         />
         <TextInput
-          placeholder="Location"
-          onChangeText={text => setLocation(text)}
-          value={location}
+          placeholder="Contact Number"
+          onChangeText={text => setContact(text)}
+          value={contact_number}
           style={styles.input}
         />
         <TextInput
@@ -93,8 +93,8 @@ const Signup = () => {
 
         <View>
           <Text style={{ marginTop: "2vh" }}>Already have an Account? <TouchableOpacity
-
-            onPress={() => router.push(`/`)} ><Text style={{ color: "blue" }}>Login</Text></TouchableOpacity></Text>
+            
+            onPress={() => router.push(`/trainerlogin`)}><Text style={{ color: "blue" }}>Login</Text></TouchableOpacity></Text>
         </View>
       </View>
     </SafeAreaView>
@@ -104,11 +104,10 @@ const Signup = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   },
   header: {
+    marginTop:25,
     fontSize: 24,
     marginBottom: 20,
   },
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 5,
-    marginBottom:"4vh",
+    marginBottom:20,
   },
   dropdownText: {
     fontSize: 16,

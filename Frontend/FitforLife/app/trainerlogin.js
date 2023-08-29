@@ -11,7 +11,7 @@ const Login = () => {
   const router = useRouter()
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/login/', {
+      const response = await axios.post('http://127.0.0.1:8000/api/logintrainer/', {
         email,
         password,
       });
@@ -22,7 +22,7 @@ const Login = () => {
       AsyncStorage.setItem("id", response.data.info.user_id)
       setEmail("")
       setPassword("")
-      router.push(`/(drawer)/Profile`)
+      router.push(`/trainer/`)
     } catch (error) {
       console.error('Signup error:', error);
     }
@@ -32,7 +32,7 @@ const Login = () => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-          <Text style={styles.header}>Login</Text>
+        <Text style={styles.header}>Trainer Login</Text>
         <TextInput
           placeholder="Email"
           onChangeText={text => setEmail(text)}
@@ -50,14 +50,9 @@ const Login = () => {
       </View>
 
       <View>
-        <Text style={{ marginTop: "2vh", textAlign: "center" }}>Don't yet have any Account? <TouchableOpacity
+        <Text style={{ marginTop: "2vh", textAlign: "center" }}>Wanna be a Trainer? <TouchableOpacity
           
-          onPress={() => router.push(`/Signup`)} ><Text style={{ color: "blue" }}>Signup</Text></TouchableOpacity></Text>
-      </View>
-      <View>
-        <Text style={{ marginTop: "2vh", textAlign: "center" }}>Are you a trainer? <TouchableOpacity
-          
-          onPress={() => router.push(`/trainerlogin`)} ><Text style={{ color: "blue" }}>Trainer</Text></TouchableOpacity></Text>
+          onPress={() => router.push(`/trainerSignup`)} ><Text style={{ color: "blue" }}>Signup</Text></TouchableOpacity></Text>
       </View>
     </SafeAreaView>
   );
@@ -65,8 +60,8 @@ const Login = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    // flex: 2,
+    // justifyContent: 'center',
     alignItems: 'center',
   },
   header: {
