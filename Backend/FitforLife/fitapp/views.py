@@ -30,7 +30,7 @@ class SignupView(APIView):
 
         try:
             # Create a new user instance
-            user = User(username=username , email=email , age=age, location=location , gender = gender)
+            user = User(username=username , email=email , age=age, location=location , gender = gender , profile_image="https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg")
             # Hash and set the user's password
             user.set_password(password)
             # Save the user instance to the database
@@ -84,6 +84,7 @@ def user_detail(request, user_id):
             'age': user.age,
             'location': user.location,
             'gender': user.gender,
+            'profile_image': user.profile_image
             # Add any other user-related information here
         }
         return Response(data, status=status.HTTP_200_OK)
@@ -93,7 +94,7 @@ def user_detail(request, user_id):
         new_age = request.data.get('age')
         new_location = request.data.get('location')
         new_gender = request.data.get('gender')
-        
+        new_profile = request.data.get('profile_image')
         if new_username:
             user.username = new_username
         if new_age:
@@ -102,6 +103,8 @@ def user_detail(request, user_id):
             user.location = new_location
         if new_gender:
             user.gender = new_gender
+        if new_profile:
+            user.profile_image = new_profile
         
         user.save()
         return Response({'message': 'User details updated successfully.'}, status=status.HTTP_200_OK)

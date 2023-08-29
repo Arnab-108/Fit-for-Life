@@ -22,7 +22,7 @@ const Login = () => {
       AsyncStorage.setItem("id" , response.data.info.user_id)
       setEmail("")
       setPassword("")
-      router.push(`/Home`)
+      router.push(`/(drawer)/Profile`)
     } catch (error) {
       console.error('Signup error:', error);
     }

@@ -9,6 +9,7 @@ class User(Document):
     gender = StringField()
     age = IntField()
     location = StringField()
+    profile_image = StringField()
     
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
