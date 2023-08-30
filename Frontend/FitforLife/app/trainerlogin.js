@@ -22,7 +22,7 @@ const Login = () => {
       AsyncStorage.setItem("id", response.data.info.user_id)
       setEmail("")
       setPassword("")
-      router.push(`/trainer/`)
+      router.push(`/(drawer2)/Trainer`)
     } catch (error) {
       console.error('Signup error:', error);
     }
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
+    marginTop:20,
     fontSize: 24,
     marginBottom: 20,
   },

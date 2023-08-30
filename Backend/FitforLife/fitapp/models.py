@@ -1,4 +1,4 @@
-from mongoengine import Document, StringField, IntField
+from mongoengine import Document, StringField, IntField , ReferenceField, CASCADE
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 
@@ -16,3 +16,29 @@ class User(Document):
     
     def check_password(self, raw_password):
         return check_password(raw_password, self.password)
+
+class Trainer(Document):
+    name = StringField(required=True)
+    email = StringField(required=True , unique=True)
+    password = StringField(required=True)
+    gender = StringField()
+    age = IntField()
+    location=StringField()
+    specialization = StringField()
+    profile_image = StringField()
+    experience = IntField()
+    contact_number = StringField()
+
+    def set_password(self, raw_password):
+        self.password = make_password(raw_password)
+    
+    def check_password(self, raw_password):
+        return check_password(raw_password, self.password)
+    
+class WorkoutPlan(Document):
+    name = StringField(required=True)
+    goal = StringField(required=True)
+    duration = StringField(required=True)
+    description = StringField()
+    trainer = ReferenceField(Trainer, reverse_delete_rule=CASCADE)
+    trainer_name = StringField()

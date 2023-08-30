@@ -136,7 +136,6 @@ const Profile = () => {
             </Card.Content>
             <Card.Actions>
               <Button mode="outlined" style={styles.editButton} onPress={() => setEditModalVisible(true)}>Edit Profile</Button>
-              <Button mode="outlined" style={styles.editButton} onPress={() => setEditModalVisible(true)}>Edit Profile</Button>
             </Card.Actions>
           </ScrollView>
         </Card>
@@ -215,7 +214,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f5f5f5',
-    marginBottom: "7vh"
+    marginBottom: "7vh",
   },
   header: {
     marginTop: "5vh",
