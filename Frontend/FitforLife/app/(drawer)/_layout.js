@@ -2,6 +2,7 @@ import { Drawer } from 'expo-router/drawer';
 import { AntDesign } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+
 export default function Layout() {
     return (
         <Drawer
@@ -22,6 +23,15 @@ export default function Layout() {
                     drawerLabel: "Profile",
                     title: "Profile",
                     drawerIcon: ({size , color}) => <AntDesign name="profile" size={size} color={color} />,
+                    drawerStyle:{paddingTop:"5vh"}
+                }}
+            />
+            <Drawer.Screen
+                name="WorkoutLog"
+                options={{
+                    drawerLabel: "Insert Logs",
+                    title: "Insert Logs",
+                    drawerIcon: ({size , color}) => <MaterialIcons name="insert-comment" size={size} color={color} />,
                     drawerStyle:{paddingTop:"5vh"}
                 }}
             />

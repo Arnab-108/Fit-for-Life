@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 from . import views
-from .views import SignupView, LoginView, user_detail,TrainerSignupView,TrainerLoginView,tariner_detail,CreateWorkoutPlanView,GetTrainerWorkoutPlans
+from .views import SignupView, LoginView, user_detail,TrainerSignupView,TrainerLoginView,tariner_detail,CreateWorkoutPlanView,GetTrainerWorkoutPlans , CreateUserWorkoutLogView,GetUserWorkoutLogs
 
 urlpatterns=[
     path("", views.my_view , name="my_view"),
@@ -12,4 +12,6 @@ urlpatterns=[
     path('trainer/<str:user_id>/',tariner_detail , name="trainer_detain" ),
     path('create-workout-plan/', CreateWorkoutPlanView.as_view(), name='create-workout-plan'),
     path('trainers/<str:trainer_id>/workout-plans/', GetTrainerWorkoutPlans.as_view(), name='get-trainer-workout-plans'),
+    path('create_user_workout_log/', CreateUserWorkoutLogView.as_view(), name='create_user_workout_log'),
+    path('user/<str:user_id>/workout-logs/', GetUserWorkoutLogs.as_view(), name='get-user-workout-logs'),
 ]

@@ -1,4 +1,4 @@
-from mongoengine import Document, StringField, IntField , ReferenceField, CASCADE
+from mongoengine import Document, StringField, IntField , ReferenceField, CASCADE,DateField
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 
@@ -42,3 +42,11 @@ class WorkoutPlan(Document):
     description = StringField()
     trainer = ReferenceField(Trainer, reverse_delete_rule=CASCADE)
     trainer_name = StringField()
+
+class UserWorkoutLog(Document):
+    user = ReferenceField(User, required=True , reverse_delete_rule=CASCADE)
+    date = StringField(required=True)
+    workout_plan = StringField(required=True) 
+    exercises = StringField()
+    duration = IntField()
+    user_name = StringField()

@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_jwt.settings import api_settings
 from rest_framework.decorators import api_view
-from .models import User,Trainer,WorkoutPlan
+from .models import User,Trainer,WorkoutPlan,UserWorkoutLog
 
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
@@ -277,6 +277,66 @@ class GetTrainerWorkoutPlans(APIView):
             
             return Response(serialized_plans, status=status.HTTP_200_OK)
         except Trainer.DoesNotExist:
+            return Response({'error': 'Trainer not found.'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': 'Could not retrieve workout plans.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class CreateUserWorkoutLogView(APIView):
+    def post(self, request):
+        data = request.data
+
+        # Extract details from request data
+        user_id = data.get('user_id')
+        date = data.get('date')
+        workout_plan = data.get('workout_plan')
+        exercises = data.get('exercises')
+        duration = data.get('duration')
+
+        try:
+            # Get the user instance
+            user = User.objects.get(id=user_id)
+
+            # Create a new workout log instance
+            workout_log = UserWorkoutLog(
+                user=user,
+                date=date,
+                workout_plan=workout_plan,
+                exercises=exercises,
+                duration=duration,
+                user_name = user.username
+            )
+            workout_log.save()
+
+            return Response({'message': 'Workout log created successfully.'}, status=status.HTTP_201_CREATED)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': f'Could not create a workout log. Error: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class GetUserWorkoutLogs(APIView):
+    def get(self, request, user_id):
+        try:
+        # Get the trainer instance
+            user = User.objects.get(id=user_id)
+            
+            # Get all workout plans created by the trainer
+            workout_logs = UserWorkoutLog.objects.filter(user = user)
+            
+            # Serialize the workout plans and return the response
+            serialized_plans = []  # You need to create serializers for WorkoutPlan model
+            for plan in workout_logs:
+                serialized_plans.append({
+                    'user_id': str(plan.id),
+                    'date': plan.date,
+                    'workout_plan': plan.workout_plan,
+                    'duration': plan.duration,
+                    'exercises': plan.exercises,
+                    'user_name': plan.user_name,
+                })
+            
+            return Response(serialized_plans, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
             return Response({'error': 'Trainer not found.'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': 'Could not retrieve workout plans.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

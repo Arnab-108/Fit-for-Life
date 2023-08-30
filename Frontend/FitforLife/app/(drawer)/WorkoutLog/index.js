@@ -1,35 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { Card, Button, TextInput } from 'react-native-paper';
+import DatePicker from 'react-native-datepicker';
 import { DrawerToggleButton } from "@react-navigation/drawer";
 import { Drawer } from 'expo-router/drawer';
 import ModalDropdown from 'react-native-modal-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios"
-const workout = () => {
-    const [name, setName] = useState('');
-    const [goal, setGoal] = useState('');
-    const [duration, setDuration] = useState('');
-    const [description, setDescription] = useState('');
-    const goalOptions = ['Select Goal', 'Weight Loss', 'Muscle Gain', 'Cardio Fitness'];
 
-    const handleCreateWorkoutPlan = async () => {
+const Activity = () => {
+
+    const [name, setName] = useState('')
+    const [duration, setDuration] = useState('')
+    const [exercises, setExercises] = useState('')
+    const [workout_plan, setWorkout] = useState('')
+    const [date, setDate] = useState(new Date());
+    const logOptions = ['Select Goal', 'Weight Loss', 'Muscle Gain', 'Cardio Fitness'];
+
+    const handleCreateWorkoutLog = async () => {
         try {
             const storedUserId = await AsyncStorage.getItem('id');
             console.log(storedUserId, "id");
 
             obj = {
-                trainer_id: storedUserId,
-                name,
-                goal,
+                user_id: storedUserId,
                 duration,
-                description
+                exercises,
+                workout_plan,
+                date,
             }
 
-            axios.post(`http://127.0.0.1:8000/api/create-workout-plan/`, obj)
+            axios.post(`http://127.0.0.1:8000/api/create_user_workout_log/`, obj)
                 .then((res) => {
                     console.log(res)
-                    alert("Workout Plan Created!")
+                    alert("Workout Log Created!")
                 })
                 .catch((err) => {
                     console.log(err);
@@ -41,14 +45,14 @@ const workout = () => {
     };
 
     const handleValueChange = (index) => {
-        const selectedGoal = goalOptions[index];
-        setGoal(selectedGoal);
+        const selectedGoal = logOptions[index];
+        setWorkout(selectedGoal);
     };
     return (
         <View>
             <Drawer.Screen
                 options={{
-                    title: "Workout Plan",
+                    title: "Activity Logs",
                     headerShown: true,
                     headerShadowVisible: false,
                     headerStyle: { backgroundColor: "#f0f0f0" },
@@ -60,33 +64,37 @@ const workout = () => {
                 <Card style={styles.createCard}>
                     <Card.Content>
                         <TextInput
-                            label="Name"
-                            value={name}
-                            onChangeText={setName}
+                            label="Duration (minuites)"
+                            value={duration}
+                            onChangeText={setDuration}
                         />
                         <ModalDropdown
-                            options={goalOptions}
-                            defaultValue="Select Goal"
+                            options={logOptions}
+                            defaultValue="Select Workout"
                             onSelect={handleValueChange}
                             style={styles.dropdown}
                             textStyle={styles.dropdownText}
                             dropdownStyle={styles.dropdownStyle}
                         />
                         <TextInput
-                            label="Duration (week)"
-                            value={duration}
-                            onChangeText={setDuration}
+                            style={styles.input}
+                            placeholder="Select Date (YYYY-MM-DD)"
+                            value={date}
+                            onChangeText={setDate}
                         />
+
                         <TextInput
-                            label="Description"
-                            value={description}
-                            onChangeText={setDescription}
+                            label="Exercises"
+                            value={exercises}
+                            onChangeText={setExercises}
                             multiline
                             numberOfLines={4} // You can adjust this value based on your design
                             style={styles.textarea}
                         />
-                        <Button style={{ marginTop: 20 }} mode="contained" onPress={handleCreateWorkoutPlan}>
-                            Create Workout Plan
+                        <Button style={{ marginTop: 20 }} mode="contained"
+                            onPress={handleCreateWorkoutLog}
+                        >
+                            Create Workout Log
                         </Button>
                     </Card.Content>
                 </Card>
@@ -95,6 +103,7 @@ const workout = () => {
         </View>
     )
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -111,11 +120,11 @@ const styles = StyleSheet.create({
     },
     createCard: {
         marginTop: 16,
-        
+
     },
     textarea: {
-        height: 100, // Adjust this value to control the height of the textarea
-        textAlignVertical: 'top', // Start the text from the top of the input
+        height: 100,
+        textAlignVertical: 'top',
     },
     header: {
         marginTop: 10,
@@ -126,13 +135,12 @@ const styles = StyleSheet.create({
     },
     dropdown: {
         width: 295,
-        height:55,
-        // borderWidth: 1,
-        // borderColor: 'black',
-        // backgroundColor:"rgb(195 122 185 / 0%)",
-        backgroundColor:"#eadfed",
+        height: 55,
+        backgroundColor: "#eadfed",
         paddingVertical: 10,
         paddingHorizontal: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: "gray"
     },
     dropdownText: {
         fontSize: 16,
@@ -143,6 +151,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'black',
     },
+    datePicker: {
+        width: 200, // Adjust the width as needed
+        alignSelf: 'center', // Center the date picker horizontally
+        marginTop: 10,
+        marginBottom: 20,
+    },
 });
 
-export default workout 
+export default Activity

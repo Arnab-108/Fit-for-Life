@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
     backgroundColor: 'white',
-    height: "40vh"
+    height: "60vh"
   },
   info: {
     marginBottom: 10,
