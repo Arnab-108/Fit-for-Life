@@ -1,20 +1,20 @@
 import { Drawer } from 'expo-router/drawer';
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-
+import { FontAwesome5 } from '@expo/vector-icons';
 export default function Layout() {
     return (
         <Drawer
-            screenOptions={{ headerShown: false,swipeEdgeWidth : 0,}}
+            screenOptions={{ headerShown: false, swipeEdgeWidth: 0, }}
         >
             <Drawer.Screen
                 name="Home"
                 options={{
                     drawerLabel: "Home",
                     title: "Home",
-                    drawerIcon: ({size , color}) => <Entypo name="home" size={size} color={color} />,
-                    drawerStyle:{paddingTop:"5vh"}
+                    drawerIcon: ({ size, color }) => <Entypo name="home" size={size} color={color} />,
+                    drawerStyle: { paddingTop: "5vh" }
                 }}
             />
             <Drawer.Screen
@@ -22,8 +22,8 @@ export default function Layout() {
                 options={{
                     drawerLabel: "Profile",
                     title: "Profile",
-                    drawerIcon: ({size , color}) => <AntDesign name="profile" size={size} color={color} />,
-                    drawerStyle:{paddingTop:"5vh"}
+                    drawerIcon: ({ size, color }) => <AntDesign name="profile" size={size} color={color} />,
+                    drawerStyle: { paddingTop: "5vh" }
                 }}
             />
             <Drawer.Screen
@@ -31,8 +31,17 @@ export default function Layout() {
                 options={{
                     drawerLabel: "Insert Logs",
                     title: "Insert Logs",
-                    drawerIcon: ({size , color}) => <MaterialIcons name="insert-comment" size={size} color={color} />,
-                    drawerStyle:{paddingTop:"5vh"}
+                    drawerIcon: ({ size, color }) => <MaterialIcons name="insert-comment" size={size} color={color} />,
+                    drawerStyle: { paddingTop: "5vh" }
+                }}
+            />
+            <Drawer.Screen
+                name="ActivityLog"
+                options={{
+                    drawerLabel: "Activity Log",
+                    title: "Activity Log",
+                    drawerIcon: ({ size, color }) => <FontAwesome5 name="microblog" size={size} color={color} />,
+                    drawerStyle: { paddingTop: "5vh" }
                 }}
             />
             <Drawer.Screen
@@ -40,12 +49,12 @@ export default function Layout() {
                 options={{
                     drawerLabel: "Settings",
                     title: "Settings",
-                    drawerIcon: ({size , color}) => <MaterialIcons name="settings" size={size} color={color} />,
-                    drawerStyle:{paddingTop:"5vh"}
+                    drawerIcon: ({ size, color }) => <MaterialIcons name="settings" size={size} color={color} />,
+                    drawerStyle: { paddingTop: "5vh" }
                 }}
             />
-            
-            
+
+
         </Drawer>
 
     )

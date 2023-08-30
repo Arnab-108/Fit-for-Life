@@ -10,7 +10,6 @@ import axios from "axios"
 
 const Activity = () => {
 
-    const [name, setName] = useState('')
     const [duration, setDuration] = useState('')
     const [exercises, setExercises] = useState('')
     const [workout_plan, setWorkout] = useState('')
@@ -33,6 +32,10 @@ const Activity = () => {
             axios.post(`http://127.0.0.1:8000/api/create_user_workout_log/`, obj)
                 .then((res) => {
                     console.log(res)
+                    setDuration("")
+                    setDate("")
+                    setExercises("")
+                    setWorkout("")
                     alert("Workout Log Created!")
                 })
                 .catch((err) => {
@@ -52,7 +55,7 @@ const Activity = () => {
         <View>
             <Drawer.Screen
                 options={{
-                    title: "Activity Logs",
+                    title: "",
                     headerShown: true,
                     headerShadowVisible: false,
                     headerStyle: { backgroundColor: "#f0f0f0" },
