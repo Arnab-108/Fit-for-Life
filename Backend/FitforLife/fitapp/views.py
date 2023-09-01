@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_jwt.settings import api_settings
 from rest_framework.decorators import api_view
-from .models import User,Trainer,WorkoutPlan,UserWorkoutLog
+from .models import User,Trainer,WorkoutPlan,UserWorkoutLog,Goal
 
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
@@ -282,6 +282,27 @@ class GetTrainerWorkoutPlans(APIView):
             return Response({'error': 'Could not retrieve workout plans.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+class GetAllWorkoutPlans(APIView):
+    def get(self, request):
+        try:
+            workout_plans = WorkoutPlan.objects.all()
+            
+            serialized_plans = []
+            for plan in workout_plans:
+                serialized_plans.append({
+                    'user_id': str(plan.id),
+                    'name': plan.name,
+                    'goal': plan.goal,
+                    'duration': plan.duration,
+                    'description': plan.description,
+                    'trainer_name': plan.trainer_name,
+                })
+            
+            return Response(serialized_plans, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': 'Could not retrieve workout plans.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 class CreateUserWorkoutLogView(APIView):
     def post(self, request):
         data = request.data
@@ -340,3 +361,59 @@ class GetUserWorkoutLogs(APIView):
             return Response({'error': 'Trainer not found.'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': 'Could not retrieve workout plans.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class CreateGoal(APIView):
+    def post(self, request):
+        data = request.data
+
+        # Extract details from request data
+        user_id = data.get('user_id')
+        goal_type = data.get('goal_type')
+        target = data.get('target')
+        timeline = data.get('timeline')
+
+        try:
+            # Get the user instance
+            user = User.objects.get(id=user_id)
+
+            # Create a new workout log instance
+            goal = Goal(
+                user=user,
+                goal_type=goal_type,
+                target=target,
+                timeline=timeline,
+                username = user.username
+            )
+            goal.save()
+
+            return Response({'message': 'Goal created successfully.'}, status=status.HTTP_201_CREATED)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': f'Could not create a new goal. Error: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class GetUserGoals(APIView):
+    def get(self, request, user_id):
+        try:
+        # Get the trainer instance
+            user = User.objects.get(id=user_id)
+            
+            # Get all workout plans created by the trainer
+            goals = Goal.objects.filter(user = user)
+            
+            # Serialize the workout plans and return the response
+            serialized_plans = []  # You need to create serializers for WorkoutPlan model
+            for plan in goals:
+                serialized_plans.append({
+                    'user_id': str(plan.id),
+                    'goal_type': plan.goal_type,
+                    'target': plan.target,
+                    'timeline': plan.timeline,
+                    'user_name': plan.username,
+                })
+            
+            return Response(serialized_plans, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({'error': 'Trainer not found.'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': f'Could not retrive the goal. Error: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

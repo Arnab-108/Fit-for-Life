@@ -50,3 +50,10 @@ class UserWorkoutLog(Document):
     exercises = StringField()
     duration = IntField()
     user_name = StringField()
+
+class Goal(Document):
+    user = ReferenceField(User , required=True , reverse_delete_rule=CASCADE)
+    goal_type = StringField()
+    target = StringField()
+    timeline = StringField()
+    username = StringField()
