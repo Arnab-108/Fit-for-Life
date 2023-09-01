@@ -2,6 +2,7 @@ import { Drawer } from 'expo-router/drawer';
 import { Zocial } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 export default function Layout() {
     return (
@@ -32,6 +33,15 @@ export default function Layout() {
                     drawerLabel: "My Plans",
                     title: "My Plans",
                     drawerIcon: ({size , color}) => <MaterialCommunityIcons name="star-shooting-outline" size={size} color={color} />,
+                    drawerStyle:{paddingTop:"5vh"}
+                }}
+            />
+            <Drawer.Screen
+                name="nutrition"
+                options={{
+                    drawerLabel: "Nutrition",
+                    title: "Nutrition",
+                    drawerIcon: ({size , color}) => <Ionicons name="nutrition" size={size} color={color} />,
                     drawerStyle:{paddingTop:"5vh"}
                 }}
             />

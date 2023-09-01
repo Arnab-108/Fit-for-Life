@@ -57,3 +57,11 @@ class Goal(Document):
     target = StringField()
     timeline = StringField()
     username = StringField()
+
+class NutritionPlan(Document):
+    name = StringField(required=True)
+    goal = StringField(required=True)
+    duration = StringField(required=True)
+    guidelines = StringField()
+    trainer = ReferenceField(Trainer, reverse_delete_rule=CASCADE)
+    trainer_name = StringField()

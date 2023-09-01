@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_jwt.settings import api_settings
 from rest_framework.decorators import api_view
-from .models import User,Trainer,WorkoutPlan,UserWorkoutLog,Goal
+from .models import User,Trainer,WorkoutPlan,UserWorkoutLog,Goal,NutritionPlan
 
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
@@ -417,3 +417,63 @@ class GetUserGoals(APIView):
             return Response({'error': 'Trainer not found.'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': f'Could not retrive the goal. Error: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class CreateNutritionPlanView(APIView):
+    def post(self, request):
+        data = request.data
+
+        # Extract details from request data
+        trainer_id = data.get('trainer_id')
+        name = data.get('name')
+        goal = data.get('goal')
+        duration = data.get('duration')
+        guidelines = data.get('guidelines')
+
+        try:
+            # Get the trainer instance
+            trainer = Trainer.objects.get(id=trainer_id)
+            
+            # Create a new workout plan instance with the details
+            nutrition_plan = NutritionPlan(
+                name=name,
+                goal=goal,
+                duration=duration,
+                guidelines=guidelines,
+                trainer=trainer,
+                trainer_name=trainer.name  # Store the name of the trainer
+            )
+            nutrition_plan.save()
+
+            return Response({'message': 'Nutrition plan created successfully.'}, status=status.HTTP_201_CREATED)
+        except Trainer.DoesNotExist:
+            return Response({'error': 'Trainer not found.'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': f'Could not create a Nutrition plan. Error: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class GetTrainerNutritionPlans(APIView):
+    def get(self, request, trainer_id):
+        try:
+            # Get the trainer instance
+            trainer = Trainer.objects.get(id=trainer_id)
+            
+            # Get all workout plans created by the trainer
+            nutrition_plans = NutritionPlan.objects.filter(trainer=trainer)
+            
+            # Serialize the workout plans and return the response
+            serialized_plans = []  # You need to create serializers for WorkoutPlan model
+            for plan in nutrition_plans:
+                serialized_plans.append({
+                    'user_id': str(plan.id),
+                    'name': plan.name,
+                    'goal': plan.goal,
+                    'duration': plan.duration,
+                    'guidelines': plan.guidelines,
+                    'trainer_name': plan.trainer_name,
+                })
+            
+            return Response(serialized_plans, status=status.HTTP_200_OK)
+        except Trainer.DoesNotExist:
+            return Response({'error': 'Trainer not found.'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': 'Could not retrieve workout plans.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

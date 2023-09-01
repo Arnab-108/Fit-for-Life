@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 from . import views
-from .views import SignupView, LoginView, user_detail,TrainerSignupView,TrainerLoginView,tariner_detail,CreateWorkoutPlanView,GetTrainerWorkoutPlans , CreateUserWorkoutLogView,GetUserWorkoutLogs,GetAllWorkoutPlans,CreateGoal,GetUserGoals
+from .views import SignupView, LoginView, user_detail,TrainerSignupView,TrainerLoginView,tariner_detail,CreateWorkoutPlanView,GetTrainerWorkoutPlans , CreateUserWorkoutLogView,GetUserWorkoutLogs,GetAllWorkoutPlans,CreateGoal,GetUserGoals,CreateNutritionPlanView,GetTrainerNutritionPlans
 
 urlpatterns=[
     path("", views.my_view , name="my_view"),
@@ -17,4 +17,6 @@ urlpatterns=[
     path('all-workout-plans/', GetAllWorkoutPlans.as_view(), name='all-workout-plans'),
     path('create_goal/' , CreateGoal.as_view(), name="create_goal"),
     path('user/<str:user_id>/goals/', GetUserGoals.as_view(), name='goals'),
+    path('create-nutrition-plan/', CreateNutritionPlanView.as_view(), name='create-nutrition-plan'),
+    path('trainers/<str:trainer_id>/nutrition-plans/', GetTrainerNutritionPlans.as_view(), name='get-trainer-nutrition-plans'),
 ]
