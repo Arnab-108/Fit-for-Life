@@ -1,9 +1,12 @@
 import { Drawer } from 'expo-router/drawer';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+
 export default function Layout() {
     return (
         <Drawer
@@ -37,29 +40,39 @@ export default function Layout() {
                 }}
             />
             <Drawer.Screen
-                name="workoutplan"
+                name="dietlog"
                 options={{
-                    drawerLabel: "Plans",
-                    title: "Plans",
-                    drawerIcon: ({ size, color }) => <MaterialIcons name="group-work" size={size} color={color} />,
+                    drawerLabel: "Daily Diet",
+                    title: "Daily Diet",
+                    drawerIcon: ({ size, color }) => <MaterialCommunityIcons name="food-variant" size={size} color={color} />,
                     drawerStyle: { paddingTop: "10vh" }
                 }}
             />
-            {/* <Drawer.Screen
-                name="WorkoutLog"
-                options={{
-                    drawerLabel: "Insert Logs",
-                    title: "Insert Logs",
-                    drawerIcon: ({ size, color }) => <MaterialIcons name="insert-comment" size={size} color={color} />,
-                    drawerStyle: { paddingTop: "10vh" }
-                }}
-            /> */}
             <Drawer.Screen
                 name="ActivityLog"
                 options={{
-                    drawerLabel: "Activity Log",
-                    title: "Activity Log",
-                    drawerIcon: ({ size, color }) => <FontAwesome5 name="microblog" size={size} color={color} />,
+                    drawerLabel: "Daily Activity",
+                    title: "Daily Activity",
+                    drawerIcon: ({ size, color }) => <Feather name="activity" size={size} color={color} />,
+                    drawerStyle: { paddingTop: "10vh" }
+                }}
+            />
+            <Drawer.Screen
+                name="nutritionplan"
+                options={{
+                    drawerLabel: "Diet Plans",
+                    title: "Diet Plans",
+                    drawerIcon: ({ size, color }) => <MaterialIcons name="food-bank" size={size} color={color} />,
+                    drawerStyle: { paddingTop: "10vh" }
+                }}
+            />
+
+            <Drawer.Screen
+                name="workoutplan"
+                options={{
+                    drawerLabel: "Workout Plans",
+                    title: "Workout Plans",
+                    drawerIcon: ({ size, color }) => <MaterialIcons name="sports-handball" size={size} color={color} />,
                     drawerStyle: { paddingTop: "10vh" }
                 }}
             />

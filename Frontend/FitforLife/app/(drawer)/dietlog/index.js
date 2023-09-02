@@ -7,15 +7,15 @@ import { DrawerToggleButton } from "@react-navigation/drawer";
 import { Drawer } from 'expo-router/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
-const Nutrition = () => {
+const Log = () => {
     const [workoutLogs, setWorkoutLogs] = useState([]);
-    const [duration, setDuration] = useState('')
-    const [name, setName] = useState('')
-    const [goal, setGoal] = useState('')
-    const [guidelines, setGuidelines] = useState('');
+    const [calories, setCalories] = useState('')
+    const [meals, setMeals] = useState('')
+    const [nutrition_plan, setNutrition] = useState('')
+    const [date, setDate] = useState(new Date());
     const [editModalVisible, setEditModalVisible] = useState(false);
-    const logOptions = ['Select Goal', 'Weight Loss', 'Muscle Gain', 'Cardio Fitness', 'Balanced Diet'];
-
+    const logOptions = ['Select Goal', 'Weight Loss', 'Muscle Gain', 'Cardio Fitness'];
+    
     useEffect(() => {
         getdata()
     }, []);
@@ -23,7 +23,7 @@ const Nutrition = () => {
     const getdata = async () => {
         try {
             const storedId = await AsyncStorage.getItem('id')
-            axios.get(`http://127.0.0.1:8000/api/trainers/${storedId}/nutrition-plans/`)
+            axios.get(`http://127.0.0.1:8000/api/user/${storedId}/nutrition-logs/`)
                 .then((res) => {
                     console.log(res.data)
                     setWorkoutLogs(res.data)
@@ -42,23 +42,23 @@ const Nutrition = () => {
             console.log(storedUserId, "id");
 
             obj = {
-                trainer_id: storedUserId,
-                name,
-                duration,
-                guidelines,
-                goal,
+                user_id: storedUserId,
+                calories,
+                meals,
+                nutrition_plan,
+                date,
             }
 
-            axios.post(`http://127.0.0.1:8000/api/create-nutrition-plan/`, obj)
+            axios.post(`http://127.0.0.1:8000/api/create_user_nutrition_log/`, obj)
                 .then((res) => {
                     console.log(res)
                     getdata()
-                    setDuration("")
-                    setName("")
-                    setGoal("")
-                    setGuidelines("")
+                    setCalories("")
+                    setDate("")
+                    setMeals("")
+                    setNutrition("")
                     setEditModalVisible(false)
-                    alert("Nutrition Plan Created!")
+                    alert("Nutrition Log Created!")
                 })
                 .catch((err) => {
                     console.log(err);
@@ -71,13 +71,13 @@ const Nutrition = () => {
 
     const handleValueChange = (index) => {
         const selectedGoal = logOptions[index];
-        setGoal(selectedGoal);
+        setNutrition(selectedGoal);
     };
     return (
         <View style={styles.container}>
             <Drawer.Screen
                 options={{
-                    title: "Nutrition Plan",             // <== NEW EDIT HERE
+                    title: "Diet Log",             // <== NEW EDIT HERE
                     headerShown: true,
                     headerShadowVisible: false,
                     headerStyle: { backgroundColor: "#f0f0f0" },
@@ -93,12 +93,13 @@ const Nutrition = () => {
                         <Card style={styles.card}>
                             <Card.Content>
                                 <View style={styles.header}>
-                                    <Avatar.Text size={40} label={item.trainer_name.charAt(0)} />
-                                    <Text style={styles.userName}>{item.trainer_name}</Text>
+                                    <Avatar.Text size={40} label={item.user_name.charAt(0)} />
+                                    <Text style={styles.userName}>{item.user_name}</Text>
                                 </View>
-                                <Text style={styles.plan}>{item.goal}</Text>
-                                <Text style={styles.duration}>{item.duration} weeks</Text>
-                                <Text style={styles.exercises}>{item.guidelines}</Text>
+                                <Text style={styles.date}>{item.date}</Text>
+                                <Text style={styles.plan}>{item.nutrition_plan}</Text>
+                                <Text style={styles.duration}>{item.calories} cal</Text>
+                                <Text style={styles.exercises}>{item.meals}</Text>
                             </Card.Content>
                         </Card>
                     )}
@@ -114,16 +115,10 @@ const Nutrition = () => {
                         <Card style={styles.createCard}>
                             <Card.Content>
                                 <TextInput
-                                    placeholder="Plan"
+                                    placeholder="Calories"
                                     style={styles.input}
-                                    value={name}
-                                    onChangeText={setName}
-                                />
-                                <TextInput
-                                    placeholder="Duration (Weeks)"
-                                    style={styles.input}
-                                    value={duration}
-                                    onChangeText={setDuration}
+                                    value={calories}
+                                    onChangeText={setCalories}
                                 />
                                 <ModalDropdown
                                     options={logOptions}
@@ -133,13 +128,19 @@ const Nutrition = () => {
                                     textStyle={styles.dropdownText}
                                     dropdownStyle={styles.dropdownStyle}
                                 />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Select Date (YYYY-MM-DD)"
+                                    value={date}
+                                    onChangeText={setDate}
+                                />
 
                                 <TextInput
-                                    placeholder="Guidelines"
-                                    value={guidelines}
-                                    onChangeText={setGuidelines}
+                                    placeholder="Meals"
+                                    value={meals}
+                                    onChangeText={setMeals}
                                     multiline
-                                    numberOfLines={8} // You can adjust this value based on your design
+                                    numberOfLines={4} // You can adjust this value based on your design
                                     style={styles.textArea}
                                 />
                                 <View style={styles.buttonContainer}>
@@ -147,7 +148,7 @@ const Nutrition = () => {
                                         style={[styles.saveButton, styles.saveButtonPrimary]}
                                         onPress={handleCreateWorkoutLog}
                                     >
-                                        <Text style={[styles.saveButtonText, styles.saveButtonTextPrimary]}>Create Plan</Text>
+                                        <Text style={[styles.saveButtonText, styles.saveButtonTextPrimary]}>Create Logs</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         style={[styles.saveButton, styles.saveButtonSecondary]}
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 8,
     },
-    head: {
+    head:{
         marginTop: 30,
         fontWeight: 'bold',
         fontSize: 24,
@@ -282,4 +283,4 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
 });
-export default Nutrition
+export default Log

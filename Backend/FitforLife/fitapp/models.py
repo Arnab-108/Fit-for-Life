@@ -65,3 +65,11 @@ class NutritionPlan(Document):
     guidelines = StringField()
     trainer = ReferenceField(Trainer, reverse_delete_rule=CASCADE)
     trainer_name = StringField()
+
+class UserNutritionLog(Document):
+    user = ReferenceField(User, required=True , reverse_delete_rule=CASCADE)
+    date = StringField(required=True)
+    nutrition_plan = StringField(required=True) 
+    meals = StringField()
+    calories = IntField()
+    user_name = StringField()
