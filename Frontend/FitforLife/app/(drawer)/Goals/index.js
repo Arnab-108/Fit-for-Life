@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Modal, TouchableOpacity, Button, TextInput } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Modal, TouchableOpacity, Button, TextInput, Image } from 'react-native';
 import { Card, Avatar } from 'react-native-paper';
 import axios from 'axios';
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -71,14 +71,18 @@ const Goal = () => {
     };
     return (
         <View style={styles.container}>
+            <Image
+                source={{ uri: "https://images.unsplash.com/photo-1518605360659-2aa9659ef66d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Zml0bmVzcyUyMGdvYWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" }}
+                style={styles.backgroundImage}
+            />
             <Drawer.Screen
                 options={{
                     title: "Goals",             // <== NEW EDIT HERE
                     headerShown: true,
                     headerShadowVisible: false,
-                    headerStyle: { backgroundColor: "#f0f0f0" },
+                    headerStyle: { backgroundColor: "#ffff" },
                     headerLeft: () => <DrawerToggleButton />,
-                    headerRight: () => <TouchableOpacity style={{marginRight:"5vw"}} onPress={() => setEditModalVisible(true)}><Text><MaterialIcons name="fitness-center" size={24} color="black" /></Text></TouchableOpacity>
+                    headerRight: () => <TouchableOpacity style={{ marginRight: "5vw" }} onPress={() => setEditModalVisible(true)}><Text><MaterialIcons name="fitness-center" size={24} color="black" /></Text></TouchableOpacity>
                 }}
             />
             <View style={styles.container}>
@@ -106,8 +110,12 @@ const Goal = () => {
                 visible={editModalVisible}
                 onRequestClose={() => setEditModalVisible(false)}
             >
+                <Image
+                    source={{ uri: "https://images.unsplash.com/photo-1558169528-f88e67b46a93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" }}
+                    style={styles.backgroundImage}
+                />
                 <View style={styles.modalContainer}>
-                    <Text style={styles.modalTitle}>Add Goals</Text>
+                    <Text style={styles.modalTitle}>Have a Goal?</Text>
                     <TextInput
                         placeholder="Target"
                         style={styles.input}
@@ -154,16 +162,32 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-        backgroundColor: '#f5f5f5',
+        // backgroundColor: 'transparent',
+        // height: "70vh",
+    },
+    backgroundImage: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
     },
     card: {
         marginBottom: 16,
         elevation: 4,
+        borderRadius: 12, // Rounded corners for cards
     },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 8,
+    },
+    head: {
+        marginTop: 30,
+        fontWeight: 'bold',
+        fontSize: 24,
+        marginBottom: 40,
+        textAlign: "center"
     },
     userName: {
         marginLeft: 8,
@@ -191,63 +215,77 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#ffffff",
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
         padding: 20,
+        paddingBottom:20,
+        borderRadius: 12, 
     },
     modalTitle: {
         fontSize: 24,
-        fontWeight: "bold",
+        fontWeight: 'bold',
+        textAlign:"center",
         marginBottom: 20,
+        position:"relative",
+        bottom:"8vh",
+        color:"#f5d49d"
     },
     input: {
-        width: "100%",
+        width: '100%',
         height: 40,
-        borderColor: "#ccc",
+        borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 5,
-        marginBottom: 10,
+        marginBottom: 20, // Increased margin bottom for better spacing
         paddingHorizontal: 10,
+        backgroundColor: "white"
     },
     dropdown: {
-        width: "100%",
+        width: '100%',
         height: 40,
-        backgroundColor: "#f0f0f0",
-        borderColor: "#ccc",
+        backgroundColor: '#f0f0f0',
+        borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 5,
-        marginBottom: 10,
+        marginBottom: 20, // Increased margin bottom for better spacing
         paddingHorizontal: 10,
-        justifyContent: "center",
+        justifyContent: 'center',
     },
     dropdownText: {
         fontSize: 16,
     },
     buttonContainer: {
-        flexDirection: "row",
-        justifyContent: "space-around",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         marginTop: 20,
-        gap:20
     },
     saveButton: {
-        justifyContent: "center",
-        alignItems: "center",
-        width: 140,
-        height: 40,
-        borderRadius: 20,
-        paddingHorizontal: 10,
+        flex: 1, // Make buttons equal width and fill the container
+        height: 50, // Increased button height
+        width:"40vw",
+        borderRadius: 25, // Round button corners
+        paddingHorizontal: 20, // Increased padding for button text
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     saveButtonPrimary: {
-        backgroundColor: "#007bff",
+        backgroundColor: '#007bff',
     },
     saveButtonSecondary: {
-        backgroundColor: "#ccc",
+        backgroundColor: '#ccc',
+        marginLeft: 16, // Added margin between buttons
+    },
+    saveButtonSecondary: {
+        backgroundColor: '#ccc',
+        marginLeft: 16, // Added margin between buttons
     },
     saveButtonText: {
-        color: "#ffffff",
+        color: 'white',
         fontSize: 16,
-        fontWeight: "bold",
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
 });
+
 export default Goal

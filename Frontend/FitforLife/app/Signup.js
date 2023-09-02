@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, SafeAreaView, Picker } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, SafeAreaView, Picker, Image } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { Stack, useRouter } from 'expo-router'
 import axios from 'axios';
@@ -39,14 +39,18 @@ const Signup = () => {
     setGender(selectedGender);
   };
   return (
-    <SafeAreaView>
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: "#f0f0f0" },
-          headerShadowVisible: false,
-          headerTitle: "",
-        }}
+    <SafeAreaView style={{height:"100vh"}}>
+      <Image
+        source={{ uri: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fGZpdG5lc3MlMjBzaWdudXB8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" }}
+        style={styles.backgroundImage}
       />
+      {/* <Stack.Screen
+        options={{
+          headerStyle: { backgroundColor: "transparent" },
+          headerShadowVisible: false,
+          headerTitle: "Signup",
+        }}
+      /> */}
       <View style={styles.container}>
         <Text style={styles.header}>Signup</Text>
         <TextInput
@@ -92,9 +96,9 @@ const Signup = () => {
         <Button title="Signup" onPress={handleSignup} />
 
         <View>
-          <Text style={{ marginTop: "2vh" }}>Already have an Account? <TouchableOpacity
+          <Text style={{ marginTop: "2vh",color:"#ccc" }}>Already have an Account? <TouchableOpacity
 
-            onPress={() => router.push(`/`)} ><Text style={{ color: "blue" }}>Login</Text></TouchableOpacity></Text>
+            onPress={() => router.push(`/`)} ><Text style={{ color: "#fa0255" }}>Login</Text></TouchableOpacity></Text>
         </View>
       </View>
     </SafeAreaView>
@@ -108,21 +112,32 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+  },
   header: {
     fontSize: 24,
     marginBottom: 20,
+    color:"#ccc"
   },
   input: {
     width: '80%',
     height: 40,
     borderWidth: 1,
     padding: 10,
+    borderColor:"#ccc",
+    color:"white",
     marginBottom: 20,
   },
   dropdown: {
     width: 290,
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: '#ccc',
+    color:"white",
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 5,
@@ -130,6 +145,7 @@ const styles = StyleSheet.create({
   },
   dropdownText: {
     fontSize: 16,
+    color:"white"
   },
   dropdownStyle: {
     width: 290,

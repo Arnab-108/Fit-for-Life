@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, SafeAreaView , Picker } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, SafeAreaView , Picker, Image } from 'react-native';
 import { Stack, useRouter } from 'expo-router'
 import axios from 'axios';
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -39,13 +39,10 @@ const Signup = () => {
     setGender(selectedGender);
   };
   return (
-    <SafeAreaView>
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: "#f0f0f0" },
-          headerShadowVisible: false,
-          headerTitle: "",
-        }}
+    <SafeAreaView style={{height:"100vh"}}>
+      <Image
+        source={{ uri: "https://images.unsplash.com/photo-1534258936925-c58bed479fcb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1931&q=80" }}
+        style={styles.backgroundImage}
       />
       <View style={styles.container}>
         <Text style={styles.header}>Trainer Signup</Text>
@@ -92,9 +89,9 @@ const Signup = () => {
         <Button title="Signup" onPress={handleSignup} />
 
         <View>
-          <Text style={{ marginTop: "2vh" }}>Already have an Account? <TouchableOpacity
+          <Text style={{ marginTop: "2vh",color:"#ccc" }}>Already have an Account? <TouchableOpacity
             
-            onPress={() => router.push(`/trainerlogin`)}><Text style={{ color: "blue" }}>Login</Text></TouchableOpacity></Text>
+            onPress={() => router.push(`/trainerlogin`)}><Text style={{ color: "#fac105" }}>Login</Text></TouchableOpacity></Text>
         </View>
       </View>
     </SafeAreaView>
@@ -110,18 +107,29 @@ const styles = StyleSheet.create({
     marginTop:25,
     fontSize: 24,
     marginBottom: 20,
+    fontWeight:"bold",
+    color:"#f5870a"
+  },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
   },
   input: {
     width: '80%',
     height: 40,
     borderWidth: 1,
     padding: 10,
+    color:"#f5870a",
+    borderColor:"#dbbf07",
     marginBottom: 20,
   },
   dropdown: {
     width: 290,
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: '#e6cb1e',
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 5,
@@ -129,6 +137,7 @@ const styles = StyleSheet.create({
   },
   dropdownText: {
     fontSize: 16,
+    color:"#f5870a"
   },
   dropdownStyle: {
     width: 290,

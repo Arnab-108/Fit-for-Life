@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, TextInput, Button, Image } from 'react-native';
 import { Card, Avatar } from 'react-native-paper';
 import axios from 'axios';
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -15,7 +15,7 @@ const Log = () => {
     const [date, setDate] = useState(new Date());
     const [editModalVisible, setEditModalVisible] = useState(false);
     const logOptions = ['Select Goal', 'Weight Loss', 'Muscle Gain', 'Cardio Fitness'];
-    
+
     useEffect(() => {
         getdata()
     }, []);
@@ -75,12 +75,16 @@ const Log = () => {
     };
     return (
         <View style={styles.container}>
+            <Image
+                source={{ uri: "https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80" }}
+                style={styles.backgroundImage}
+            />
             <Drawer.Screen
                 options={{
                     title: "Diet Log",             // <== NEW EDIT HERE
                     headerShown: true,
                     headerShadowVisible: false,
-                    headerStyle: { backgroundColor: "#f0f0f0" },
+                    headerStyle: { backgroundColor: "#ffff" },
                     headerLeft: () => <DrawerToggleButton />,
                     headerRight: () => <TouchableOpacity style={{ marginRight: "5vw" }} onPress={() => setEditModalVisible(true)}><Text><Ionicons name="fitness" size={24} color="red" /></Text></TouchableOpacity>
                 }}
@@ -110,8 +114,12 @@ const Log = () => {
                     visible={editModalVisible}
                     onRequestClose={() => setEditModalVisible(false)}
                 >
+                    <Image
+                        source={{ uri: "https://images.unsplash.com/photo-1567769541495-338ee7203e3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" }}
+                        style={styles.backgroundImage}
+                    />
                     <View style={styles.container}>
-                        <Text style={styles.head}>Enter your logs</Text>
+                        {/* <Text style={styles.head}>Enter your logs</Text> */}
                         <Card style={styles.createCard}>
                             <Card.Content>
                                 <TextInput
@@ -170,19 +178,28 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-        backgroundColor: '#f5f5f5',
-        height: "70vh"
+        // backgroundColor: 'transparent',
+        // height: "70vh",
+    },
+    backgroundImage: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
     },
     card: {
         marginBottom: 16,
         elevation: 4,
+        borderRadius: 12,
+        backgroundColor: 'white',
     },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 8,
     },
-    head:{
+    head: {
         marginTop: 30,
         fontWeight: 'bold',
         fontSize: 24,
@@ -215,24 +232,33 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#ffffff",
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
         padding: 20,
+        paddingBottom:20,
+        borderRadius: 12, 
     },
     modalTitle: {
         fontSize: 24,
         fontWeight: "bold",
         marginBottom: 20,
     },
+    createCard:{
+        backgroundColor:"transparent",
+        // position:"relative",
+        // top:"12vh"
+    },
     input: {
-        width: "100%",
+        width: '100%',
         height: 40,
-        borderColor: "#ccc",
+        borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 5,
-        marginBottom: 10,
+        // marginTop:40,
+        marginBottom: 20, // Increased margin bottom for better spacing
         paddingHorizontal: 10,
+        backgroundColor: "white"
     },
     textArea: {
         width: "100%",
@@ -240,8 +266,10 @@ const styles = StyleSheet.create({
         borderColor: "#ccc",
         borderWidth: 1,
         borderRadius: 5,
-        marginBottom: 10,
+        marginBottom: 20, // Increased margin bottom for better spacing
         paddingHorizontal: 10,
+        paddingVertical: 10, // Added padding for text area
+        backgroundColor:"white",
     },
     dropdown: {
         width: "100%",
@@ -250,7 +278,8 @@ const styles = StyleSheet.create({
         borderColor: "#ccc",
         borderWidth: 1,
         borderRadius: 5,
-        marginBottom: 10,
+        // marginTop:40,
+        marginBottom: 20, // Increased margin bottom for better spacing
         paddingHorizontal: 10,
         justifyContent: "center",
     },
@@ -259,28 +288,30 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         marginTop: 20,
-        gap: 20
     },
     saveButton: {
-        justifyContent: "center",
-        alignItems: "center",
-        width: 140,
-        height: 40,
-        borderRadius: 20,
-        paddingHorizontal: 10,
+        flex: 1, // Make buttons equal width and fill the container
+        height: 50, // Increased button height
+        borderRadius: 25, // Round button corners
+        paddingHorizontal: 20, // Increased padding for button text
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     saveButtonPrimary: {
         backgroundColor: "#007bff",
     },
     saveButtonSecondary: {
         backgroundColor: "#ccc",
+        marginLeft: 16, // Added margin between buttons
     },
     saveButtonText: {
-        color: "#ffffff",
+        color: 'white',
         fontSize: 16,
-        fontWeight: "bold",
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
 });
+
 export default Log

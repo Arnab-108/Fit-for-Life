@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Card, Avatar } from 'react-native-paper';
 import { DrawerToggleButton } from "@react-navigation/drawer";
 import { Drawer } from 'expo-router/drawer';
@@ -27,18 +27,22 @@ const Wrokout = () => {
     }
     return (
         <View>
+            <Image
+                source={{ uri: "https://plus.unsplash.com/premium_photo-1664648119247-441d22c4c65f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bnV0cml0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" }}
+                style={styles.backgroundImage}
+            />
             <Drawer.Screen
                 options={{
-                    title: "",
+                    title: "Workout Plans",
                     headerShown: true,
                     headerShadowVisible: false,
-                    headerStyle: { backgroundColor: "#f0f0f0" },
+                    headerStyle: { backgroundColor: "#ffff" },
                     headerLeft: () => <DrawerToggleButton />,
                 }}
             />
 
             <View style={styles.container}>
-                <Text style={styles.head}>Workout Plans</Text>
+                {/* <Text style={styles.head}>Workout Plans</Text> */}
                 <FlatList
                     data={workoutPlans}
                     keyExtractor={(item, index) => item.user_id}
@@ -52,7 +56,8 @@ const Wrokout = () => {
                                 <Text style={styles.plan}>{item.name}</Text>
                                 <Text style={styles.duration}>{item.goal}</Text>
                                 <Text style={styles.duration}>{item.duration} week</Text>
-                                <Text style={styles.exercises}>{item.description}</Text>
+                                <Text style={styles.exercises}>Exercises: {item.exercises}</Text>
+                                <Text style={styles.description}>{item.description}</Text>
                             </Card.Content>
                         </Card>
                     )}
@@ -67,7 +72,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-        backgroundColor: '#f5f5f5',
+    },
+    backgroundImage: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100vh',
     },
     card: {
         marginBottom: 16,
@@ -95,6 +106,13 @@ const styles = StyleSheet.create({
         color: 'gray',
         marginBottom: 4,
     },
+    exercises: {
+        fontSize: 14,
+        lineHeight: 20,
+        fontWeight:"bold",
+        marginTop:"1vh",
+        marginBottom:"1vh"
+    },
     plan: {
         fontSize: 16,
         fontWeight: 'bold',
@@ -105,7 +123,7 @@ const styles = StyleSheet.create({
         color: '#009688',
         marginBottom: 4,
     },
-    exercises: {
+    description: {
         fontSize: 14,
         lineHeight: 20,
     },

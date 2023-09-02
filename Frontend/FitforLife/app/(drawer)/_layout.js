@@ -12,7 +12,7 @@ export default function Layout() {
         <Drawer
             screenOptions={{ headerShown: false, swipeEdgeWidth: 0, }}
         >
-            <Drawer.Screen
+            {/* <Drawer.Screen
                 name="Home"
                 options={{
                     drawerLabel: "Home",
@@ -20,7 +20,7 @@ export default function Layout() {
                     drawerIcon: ({ size, color }) => <Entypo name="home" size={size} color={color} />,
                     drawerStyle: { paddingTop: "10vh" }
                 }}
-            />
+            /> */}
             <Drawer.Screen
                 name="Profile"
                 options={{
@@ -44,6 +44,7 @@ export default function Layout() {
                 options={{
                     drawerLabel: "Daily Diet",
                     title: "Daily Diet",
+                    headerStyle: { backgroundColor: "transparent" },
                     drawerIcon: ({ size, color }) => <MaterialCommunityIcons name="food-variant" size={size} color={color} />,
                     drawerStyle: { paddingTop: "10vh" }
                 }}

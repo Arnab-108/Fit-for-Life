@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Card, Avatar } from 'react-native-paper';
 import { DrawerToggleButton } from "@react-navigation/drawer";
 import { Drawer } from 'expo-router/drawer';
@@ -27,18 +27,21 @@ const Wrokout = () => {
     }
     return (
         <View>
+            <Image
+                source={{ uri: "https://plus.unsplash.com/premium_photo-1664648119247-441d22c4c65f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bnV0cml0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" }}
+                style={styles.backgroundImage}
+            />
             <Drawer.Screen
                 options={{
-                    title: "",
+                    title: "Nutrition Plans",
                     headerShown: true,
                     headerShadowVisible: false,
-                    headerStyle: { backgroundColor: "#f0f0f0" },
+                    headerStyle: { backgroundColor: "transparent" },
                     headerLeft: () => <DrawerToggleButton />,
                 }}
             />
 
             <View style={styles.container}>
-                <Text style={styles.head}>Nutrition Plans</Text>
                 <FlatList
                     data={workoutPlans}
                     keyExtractor={(item, index) => item.user_id}
@@ -67,7 +70,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-        backgroundColor: '#f5f5f5',
+        // backgroundColor: 'transparent',
+        // height: "70vh",
+    },
+    backgroundImage: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
     },
     card: {
         marginBottom: 16,

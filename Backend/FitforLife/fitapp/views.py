@@ -232,7 +232,7 @@ class CreateWorkoutPlanView(APIView):
         goal = data.get('goal')
         duration = data.get('duration')
         description = data.get('description')
-
+        exercises = data.get('exercises')
         try:
             # Get the trainer instance
             trainer = Trainer.objects.get(id=trainer_id)
@@ -244,6 +244,7 @@ class CreateWorkoutPlanView(APIView):
                 duration=duration,
                 description=description,
                 trainer=trainer,
+                exercises = exercises,
                 trainer_name=trainer.name  # Store the name of the trainer
             )
             workout_plan.save()
@@ -271,6 +272,7 @@ class GetTrainerWorkoutPlans(APIView):
                     'name': plan.name,
                     'goal': plan.goal,
                     'duration': plan.duration,
+                    'exercises':plan.exercises,
                     'description': plan.description,
                     'trainer_name': plan.trainer_name,
                 })
@@ -294,6 +296,7 @@ class GetAllWorkoutPlans(APIView):
                     'name': plan.name,
                     'goal': plan.goal,
                     'duration': plan.duration,
+                    'exercises':plan.exercises,
                     'description': plan.description,
                     'trainer_name': plan.trainer_name,
                 })

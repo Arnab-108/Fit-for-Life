@@ -53,7 +53,8 @@ const MyPlans = () => {
                                 </View>
                                 <Text style={styles.plan}>{item.goal}</Text>
                                 <Text style={styles.duration}>{item.duration} week</Text>
-                                <Text style={styles.exercises}>{item.description}</Text>
+                                <Text style={styles.exercises}>Exercises: {item.exercises}</Text>
+                                <Text style={styles.description}>{item.description}</Text>
                             </Card.Content>
                         </Card>
                     )}
@@ -100,6 +101,13 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
     exercises: {
+        fontSize: 14,
+        lineHeight: 20,
+        fontWeight:"bold",
+        marginTop:"1vh",
+        marginBottom:"1vh"
+    },
+    description: {
         fontSize: 14,
         lineHeight: 20,
     },

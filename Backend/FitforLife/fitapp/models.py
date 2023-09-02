@@ -41,6 +41,7 @@ class WorkoutPlan(Document):
     duration = StringField(required=True)
     description = StringField()
     trainer = ReferenceField(Trainer, reverse_delete_rule=CASCADE)
+    exercises = StringField()
     trainer_name = StringField()
 
 class UserWorkoutLog(Document):

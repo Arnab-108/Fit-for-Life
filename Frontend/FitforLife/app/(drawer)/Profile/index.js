@@ -80,7 +80,11 @@ const Profile = () => {
   console.log(editedProfileImage, "profile Image")
   console.log(data, "data"); // Log the current state of data
   return (
-    <View>
+    <View style={styles.cont}>
+      <Image
+        source={{ uri: "https://images.unsplash.com/photo-1533628635777-112b2239b1c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" }}
+        style={styles.backgroundImage}
+      />
       <Drawer.Screen
         options={{
           title: "Profile",             // <== NEW EDIT HERE
@@ -91,19 +95,20 @@ const Profile = () => {
         }}
       />
       <View style={styles.container}>
-        <View style={styles.avatarContainer}>
-          {data && data.profile_image && (
-            <Avatar.Image
-              source={{ uri: data.profile_image }} // Use actual image URL
-              size={100}
-            />
-          )}
-          {data && data.username && (
-            <Title style={styles.username}>{data.username}</Title>
-          )}
-        </View>
         <Card style={styles.card}>
           <Card.Content>
+            <View style={styles.avatarContainer}>
+              {data && data.profile_image && (
+                <Avatar.Image
+                  source={{ uri: data.profile_image }} // Use actual image URL
+                  size={100}
+                />
+              )}
+              {data && data.username && (
+                <Title style={styles.username}>{data.username}</Title>
+              )}
+            </View>
+
             {/* Use data properties conditionally */}
             {data && data.email && (
               <Paragraph style={styles.info}><Text style={styles.gender}>Email:</Text> {data.email}</Paragraph>
@@ -161,9 +166,18 @@ const Profile = () => {
             value={editedProfileImage}
             onChangeText={setEditedProfileImage}
           />
-          <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
-            <Text style={styles.saveButtonText}>Save Changes</Text>
-          </TouchableOpacity>
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={[styles.saveButton, styles.saveButtonPrimary]} onPress={handleSaveChanges}>
+              <Text style={[styles.saveButtonText, styles.saveButtonTextPrimary]}>Save Changes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.saveButton, styles.saveButtonSecondary]}
+              onPress={() => setEditModalVisible(false)}
+            >
+              <Text style={[styles.saveButtonText, styles.saveButtonTextSecondary]}>Back</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Modal>
     </View>
@@ -175,8 +189,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    marginBottom: "7vh"
+    backgroundColor: 'transparent',
+    // marginBottom: 20,
+  },
+  cont:{
+      flex: 1,
+      padding: 16,
+      // backgroundColor: 'transparent',
+      // height: "70vh",
+  },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+  },
+  gender:{
+    fontWeight:'bold'
   },
   modalContainer: {
     flex: 1,
@@ -194,29 +224,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  gender: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    paddingRight: "2vw"
-  },
   card: {
-    width: '90vw',
+    width: '90%',
     elevation: 5,
     borderRadius: 10,
-    backgroundColor: 'white',
-    height: "60vh"
+    backgroundColor: 'transparent',
   },
   info: {
     marginBottom: 10,
-    marginLeft: "4vw"
   },
   editButton: {
     marginHorizontal: 20,
-    marginBottom: 20,
+    marginVertical: 20,
     borderColor: '#3498db',
     borderWidth: 2,
     borderRadius: 10,
-    marginTop: "6vh"
   },
   modalTitle: {
     fontSize: 24,
@@ -227,27 +249,30 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 15,
   },
-  saveButton: {
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginTop: 20,
-    backgroundColor: '#3498db',
-    borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    gap: 20
+  },
+  saveButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 140,
+    height: 40,
+    borderRadius: 20,
+    paddingHorizontal: 10,
+  },
+  saveButtonPrimary: {
+    backgroundColor: "#007bff",
+  },
+  saveButtonSecondary: {
+    backgroundColor: "#ccc",
   },
   saveButtonText: {
-    color: 'white',
+    color: "#ffffff",
     fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
   },
 });
 export default Profile

@@ -11,6 +11,7 @@ const workout = () => {
     const [goal, setGoal] = useState('');
     const [duration, setDuration] = useState('');
     const [description, setDescription] = useState('');
+    const [exercises , setExercises] = useState('')
     const goalOptions = ['Select Goal', 'Weight Loss', 'Muscle Gain', 'Cardio Fitness'];
 
     const handleCreateWorkoutPlan = async () => {
@@ -23,6 +24,7 @@ const workout = () => {
                 name,
                 goal,
                 duration,
+                exercises,
                 description
             }
 
@@ -76,6 +78,14 @@ const workout = () => {
                             label="Duration (week)"
                             value={duration}
                             onChangeText={setDuration}
+                        />
+                        <TextInput
+                            label="Exercises"
+                            value={exercises}
+                            onChangeText={setExercises}
+                            multiline
+                            numberOfLines={4} // You can adjust this value based on your design
+                            style={styles.textarea}
                         />
                         <TextInput
                             label="Description"
