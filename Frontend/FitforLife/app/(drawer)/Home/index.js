@@ -1,56 +1,70 @@
 import React from 'react'
-import { Text, StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, View, Image, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import { DrawerToggleButton } from "@react-navigation/drawer";
 import { Drawer } from 'expo-router/drawer';
 import { useRouter } from 'expo-router';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import data from './data';
 const Home = () => {
   const router = useRouter()
+  const fitness = data
+  console.log(fitness)
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {/* Background Image */}
-      <Image
-        source={{ uri:"https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGZpdG5lc3MlMjBtYW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"  }}
-        style={styles.backgroundImage}
-      />
-
       <Drawer.Screen
         options={{
-          title: "",
+          title: "FIT FOR LIFE",
           headerShown: true,
           headerShadowVisible: false,
-          headerStyle: { backgroundColor: "transparent" },
-          drawerStyle:{
-            backgroundColor:"#fff",
-            width:250,
-            paddingBottom:"10vh"
+          headerStyle: { backgroundColor: "#cd853f" },
+          headerTintColor: "#fff",
+          drawerStyle: {
+            backgroundColor: "#fff",
+            width: 250,
           }, // Transparent header
-          headerLeft: () => <DrawerToggleButton />,
+          headerLeft: () => <DrawerToggleButton tintColor='white' />,
         }}
       />
 
-      <View style={styles.contentContainer}>
-        {/* App Logo */}
-        {/* <Image
-          source={{uri:"https://thefitness-shop.com.au/wp-content/uploads/2020/10/The-Fitness-Shop-Brands3-150x150.jpg"}} // Replace with your app logo
-          style={styles.logo}
-        /> */}
+      <View style={{ backgroundColor: "#cd853f", padding: 10, height: 150, width: "100%" }}>
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+          <View>
+            <Text style={{ textAlign: "center", fontWeight: "bold", color: "white", fontSize: "18" }}>0</Text>
+            <Text style={{ color: "#d0d0d0", fontSize: 17, marginTop: 6 }}>WORKOUTS</Text>
+          </View>
+          <View>
+            <Text style={{ textAlign: "center", fontWeight: "bold", color: "white", fontSize: "18" }}>0</Text>
+            <Text style={{ color: "#d0d0d0", fontSize: 17, marginTop: 6 }}>CAL INTAKE</Text>
+          </View>
 
-        {/* Welcome Message */}
-        <Text style={styles.welcomeText}>
-          Working on the home screen
-        </Text>
+          <View>
+            <Text style={{ textAlign: "center", fontWeight: "bold", color: "white", fontSize: "18" }}>0</Text>
+            <Text style={{ color: "#d0d0d0", fontSize: 17, marginTop: 6 }}>MINUITES</Text>
+          </View>
+        </View>
 
-        {/* Call to Action */}
-        <TouchableOpacity
-          style={styles.getStartedButton}
-          onPress={() => {
-            router.push("/Profile")
-          }}
-        >
-          <Text style={styles.getStartedButtonText}>Get Started</Text>
-        </TouchableOpacity>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <Image style={{ width: "90%", height: 120, marginTop: 20, borderRadius: 7 }} source={{ uri: "https://images.unsplash.com/photo-1550259979-ed79b48d2a30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1968&q=80" }} />
+        </View>
+
+        <View>
+          {/* <ScrollView> */}
+            {
+              fitness.map((el)=>(
+                <TouchableOpacity style={{alignItems:"center" , justifyContent:"center" , margin:15}} key={el.id} onPress={() => {
+                  router.push({pathname:`fit-info/${el.id}`, params:{image:el.image}});
+              }}>
+                  <Image style={{width:"95%" , height:140 , borderRadius:7}} source={{uri:el.image}} />
+                  <Text style={{position:"absolute" , color:"white" , fontSize:16 , fontWeight:"bold" , left:20 , top:20}}>{el.name}</Text>
+                  <MaterialCommunityIcons style={{position:"absolute" , bottom:15 , left:20}} name="lightning-bolt" size={24} color="white" />
+                </TouchableOpacity>
+              ))
+            }
+          {/* </ScrollView> */}
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -58,41 +72,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  backgroundImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    // opacity: 0.5, // Adjust opacity for the desired effect
-  },
-  contentContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logo: {
-    width: 120,
-    height: 120,
-    marginBottom: 20,
-  },
   welcomeText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff', // Text color
+    color: 'Black', // Text color
     marginBottom: 20,
   },
-  getStartedButton: {
-    backgroundColor: '#007bff', // Button background color
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 25,
-  },
-  getStartedButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+
 });
 
 export default Home

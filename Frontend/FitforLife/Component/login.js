@@ -22,7 +22,7 @@ const Login = () => {
       AsyncStorage.setItem("id", response.data.info.user_id)
       setEmail("")
       setPassword("")
-      router.push(`/Home`)
+      router.push(`(drawer)/Home`)
     } catch (error) {
       console.error('Signup error:', error);
     }
@@ -30,13 +30,13 @@ const Login = () => {
 
 
   return (
-    <View style={{ height: "100vh" }}>
+    <View style={{ height: "100vh"}}>
       <Image
         source={{ uri: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" }}
         style={styles.backgroundImage}
       />
       <View style={styles.container}>
-        <Text style={styles.header}>Login</Text>
+        {/* <Text style={styles.header}>Login</Text> */}
         <TextInput
           placeholder="Email"
           onChangeText={text => setEmail(text)}
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom:50
   },
   backgroundImage: {
     position: 'absolute',
