@@ -16,9 +16,14 @@ const Home = () => {
       <Drawer.Screen
         options={{
           title: "",
-          headerShown: false,
+          headerShown: true,
           headerShadowVisible: false,
-          headerStyle: { backgroundColor: "transparent" }, // Transparent header
+          headerStyle: { backgroundColor: "transparent" },
+          drawerStyle:{
+            backgroundColor:"#fff",
+            width:250,
+            paddingBottom:"10vh"
+          }, // Transparent header
           headerLeft: () => <DrawerToggleButton />,
         }}
       />
@@ -32,7 +37,7 @@ const Home = () => {
 
         {/* Welcome Message */}
         <Text style={styles.welcomeText}>
-          Welcome to Fit For Life!
+          Working on the home screen
         </Text>
 
         {/* Call to Action */}

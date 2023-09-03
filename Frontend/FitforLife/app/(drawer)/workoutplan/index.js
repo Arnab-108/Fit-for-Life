@@ -36,8 +36,18 @@ const Wrokout = () => {
                     title: "Workout Plans",
                     headerShown: true,
                     headerShadowVisible: false,
-                    headerStyle: { backgroundColor: "#ffff" },
-                    headerLeft: () => <DrawerToggleButton />,
+                    headerStyle:{
+                        backgroundColor:"#f4511e"
+                    },
+                    headerTintColor:"#fff",
+                    headerTitleStyle:{
+                        fontWeight:"bold"
+                    },
+                    drawerActiveTintColor:"blue",
+                    drawerLabelStyle:{
+                        color:"#111"
+                    },
+                    headerLeft: () => <DrawerToggleButton tintColor='white' />,
                 }}
             />
 

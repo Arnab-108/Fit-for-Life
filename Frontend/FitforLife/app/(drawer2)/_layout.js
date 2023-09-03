@@ -7,7 +7,24 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 export default function Layout() {
     return (
         <Drawer
-            screenOptions={{ headerShown: false,swipeEdgeWidth : 0,}}
+            screenOptions={{ headerShown: false,swipeEdgeWidth : 0,
+                    drawerStyle:{
+                        backgroundColor:"#fff",
+                        width:250,
+                    },
+                    headerStyle:{
+                        backgroundColor:"#f4511e"
+                    },
+                    headerTintColor:"#fff",
+                    headerTitleStyle:{
+                        fontWeight:"bold"
+                    },
+                    drawerActiveTintColor:"blue",
+                    drawerLabelStyle:{
+                        color:"#111"
+                    }
+            
+            }}
         >
             <Drawer.Screen
                 name="Trainer"
@@ -15,7 +32,6 @@ export default function Layout() {
                     drawerLabel: "Trainer",
                     title: "Profile",
                     drawerIcon: ({size , color}) => <Entypo name="home" size={size} color={color} />,
-                    drawerStyle:{paddingTop:"5vh"}
                 }}
             />
             <Drawer.Screen
@@ -24,7 +40,6 @@ export default function Layout() {
                     drawerLabel: "Workout Plan",
                     title: "Workput Plan",
                     drawerIcon: ({size , color}) => <Zocial name="plancast" size={size} color={color} />,
-                    drawerStyle:{paddingTop:"5vh"}
                 }}
             />
             <Drawer.Screen
@@ -33,7 +48,6 @@ export default function Layout() {
                     drawerLabel: "My Plans",
                     title: "My Plans",
                     drawerIcon: ({size , color}) => <MaterialCommunityIcons name="star-shooting-outline" size={size} color={color} />,
-                    drawerStyle:{paddingTop:"5vh"}
                 }}
             />
             <Drawer.Screen
@@ -42,7 +56,6 @@ export default function Layout() {
                     drawerLabel: "Nutrition",
                     title: "Nutrition",
                     drawerIcon: ({size , color}) => <Ionicons name="nutrition" size={size} color={color} />,
-                    drawerStyle:{paddingTop:"5vh"}
                 }}
             />
             <Drawer.Screen
@@ -51,7 +64,6 @@ export default function Layout() {
                     drawerLabel: "Settings",
                     title: "Settings",
                     drawerIcon: ({size , color}) => <MaterialIcons name="settings" size={size} color={color} />,
-                    drawerStyle:{paddingTop:"5vh"}
                 }}
             />
             

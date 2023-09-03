@@ -81,17 +81,31 @@ const Profile = () => {
   console.log(data, "data"); // Log the current state of data
   return (
     <View style={styles.cont}>
-      <Image
+      {/* <Image
         source={{ uri: "https://images.unsplash.com/photo-1533628635777-112b2239b1c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" }}
         style={styles.backgroundImage}
-      />
+      /> */}
       <Drawer.Screen
         options={{
           title: "Profile",             // <== NEW EDIT HERE
           headerShown: true,
           headerShadowVisible: false,
-          headerStyle: { backgroundColor: "#f0f0f0" },
-          headerLeft: () => <DrawerToggleButton />,
+          headerStyle: { backgroundColor: "#f4511e" },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold"
+          },
+          drawerStyle:{
+            backgroundColor:"#fff",
+            width:250,
+            position:"relative",
+            bottom:"15vh"
+        },
+          drawerActiveTintColor: "blue",
+          drawerLabelStyle: {
+            color: "#111"
+          },
+          headerLeft: () => <DrawerToggleButton tintColor='white' />,
         }}
       />
       <View style={styles.container}>
@@ -189,14 +203,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     // marginBottom: 20,
   },
-  cont:{
-      flex: 1,
-      padding: 16,
-      // backgroundColor: 'transparent',
-      // height: "70vh",
+  cont: {
+    flex: 1,
+    padding: 16,
+    // backgroundColor: 'transparent',
+    // height: "70vh",
   },
   backgroundImage: {
     position: 'absolute',
@@ -205,8 +219,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  gender:{
-    fontWeight:'bold'
+  gender: {
+    fontWeight: 'bold'
   },
   modalContainer: {
     flex: 1,

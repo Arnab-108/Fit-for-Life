@@ -80,9 +80,19 @@ const Goal = () => {
                     title: "Goals",             // <== NEW EDIT HERE
                     headerShown: true,
                     headerShadowVisible: false,
-                    headerStyle: { backgroundColor: "#ffff" },
-                    headerLeft: () => <DrawerToggleButton />,
-                    headerRight: () => <TouchableOpacity style={{ marginRight: "5vw" }} onPress={() => setEditModalVisible(true)}><Text><MaterialIcons name="fitness-center" size={24} color="black" /></Text></TouchableOpacity>
+                    headerLeft: () => <DrawerToggleButton tintColor='white' />,
+                    headerStyle:{
+                        backgroundColor:"#f4511e"
+                    },
+                    headerTintColor:"#fff",
+                    headerTitleStyle:{
+                        fontWeight:"bold"
+                    },
+                    drawerActiveTintColor:"blue",
+                    drawerLabelStyle:{
+                        color:"#111"
+                    },
+                    headerRight: () => <TouchableOpacity style={{ marginRight: "5vw" }} onPress={() => setEditModalVisible(true)}><Text><MaterialIcons name="fitness-center" size={24} color="white" /></Text></TouchableOpacity>
                 }}
             />
             <View style={styles.container}>
@@ -162,8 +172,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-        // backgroundColor: 'transparent',
-        // height: "70vh",
+        height: "100%",
     },
     backgroundImage: {
         position: 'absolute',
