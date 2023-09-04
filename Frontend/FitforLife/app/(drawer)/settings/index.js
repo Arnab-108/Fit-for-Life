@@ -19,20 +19,20 @@ const Settings = () => {
     <View style={styles.container}>
       <Drawer.Screen
         options={{
-          title: "Settings",             
+          title: "Settings",
           headerShown: true,
           headerShadowVisible: false,
-        headerStyle:{
-            backgroundColor:"#f4511e"
-        },
-        headerTintColor:"#fff",
-        headerTitleStyle:{
-            fontWeight:"bold"
-        },
-        drawerActiveTintColor:"blue",
-        drawerLabelStyle:{
-            color:"#111"
-        },
+          headerStyle: {
+            backgroundColor: "#f4511e"
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold"
+          },
+          drawerActiveTintColor: "blue",
+          drawerLabelStyle: {
+            color: "#111"
+          },
           headerLeft: () => <DrawerToggleButton tintColor='white' />,
         }}
       />
@@ -65,12 +65,12 @@ const Settings = () => {
           </Text>
         </View>
         <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Importance of Daily Exercise</Text>
-        <Text style={styles.infoText}>
-          Regular exercise is vital for maintaining physical and mental well-being. It helps reduce stress,
-          improve cardiovascular health, and enhance overall quality of life.
-        </Text>
-      </View>
+          <Text style={styles.sectionTitle}>Importance of Daily Exercise</Text>
+          <Text style={styles.infoText}>
+            Regular exercise is vital for maintaining physical and mental well-being. It helps reduce stress,
+            improve cardiovascular health, and enhance overall quality of life.
+          </Text>
+        </View>
       </ScrollView>
 
     </View>
@@ -79,9 +79,10 @@ const Settings = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    backgroundColor: "#fff",
-    padding: 20,
+    flex: 1,
+    padding: 16,
+    // backgroundColor: 'transparent',
+    // height: "70vh",
   },
   title: {
     fontSize: 24,

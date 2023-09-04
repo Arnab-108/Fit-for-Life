@@ -26,7 +26,7 @@ const Wrokout = () => {
         }
     }
     return (
-        <View>
+        <View style={styles.container}>
             <Image
                 source={{ uri: "https://plus.unsplash.com/premium_photo-1664648119247-441d22c4c65f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bnV0cml0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" }}
                 style={styles.backgroundImage}
@@ -94,6 +94,8 @@ const styles = StyleSheet.create({
     card: {
         marginBottom: 16,
         elevation: 4,
+        borderRadius: 12,
+        backgroundColor: 'white',
     },
     head: {
         marginTop: 10,

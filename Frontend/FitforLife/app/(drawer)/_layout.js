@@ -63,7 +63,6 @@ export default function Layout() {
                     drawerLabel: "Home",
                     title: "Home",
                     drawerIcon: ({ size, color }) => <Entypo name="home" size={size} color={color} />,
-                    // drawerStyle: { paddingTop: "10vh" }
                 }}
             />
             <Drawer.Screen
@@ -72,7 +71,6 @@ export default function Layout() {
                     drawerLabel: "Profile",
                     title: "Profile",
                     drawerIcon: ({ size, color }) => <AntDesign name="profile" size={size} color={color} />,
-                    // drawerStyle: { paddingTop: "10vh" }
                 }}
             />
             <Drawer.Screen
@@ -81,7 +79,6 @@ export default function Layout() {
                     drawerLabel: "Goals",
                     title: "Goals",
                     drawerIcon: ({ size, color }) => <Ionicons name="fitness" size={size} color={color} />,
-                    // drawerStyle: { paddingTop: "10vh" }
                 }}
             />
             <Drawer.Screen
@@ -91,7 +88,6 @@ export default function Layout() {
                     title: "Daily Diet",
                     headerStyle: { backgroundColor: "transparent" },
                     drawerIcon: ({ size, color }) => <MaterialCommunityIcons name="food-variant" size={size} color={color} />,
-                    // drawerStyle: { paddingTop: "10vh" }
                 }}
             />
             <Drawer.Screen
@@ -100,7 +96,6 @@ export default function Layout() {
                     drawerLabel: "Daily Activity",
                     title: "Daily Activity",
                     drawerIcon: ({ size, color }) => <Feather name="activity" size={size} color={color} />,
-                    // drawerStyle: { paddingTop: "10vh" }
                 }}
             />
             <Drawer.Screen
@@ -109,7 +104,6 @@ export default function Layout() {
                     drawerLabel: "Diet Plans",
                     title: "Diet Plans",
                     drawerIcon: ({ size, color }) => <MaterialIcons name="food-bank" size={size} color={color} />,
-                    // drawerStyle: { paddingTop: "10vh" }
                 }}
             />
 
@@ -119,7 +113,6 @@ export default function Layout() {
                     drawerLabel: "Workout Plans",
                     title: "Workout Plans",
                     drawerIcon: ({ size, color }) => <MaterialIcons name="sports-handball" size={size} color={color} />,
-                    // drawerStyle: { paddingTop: "10vh" }
                 }}
             />
 
@@ -129,7 +122,6 @@ export default function Layout() {
                     drawerLabel: "Settings",
                     title: "Settings",
                     drawerIcon: ({ size, color }) => <MaterialIcons name="settings" size={size} color={color} />,
-                    drawerStyle: { paddingTop: "5vh" }
                 }}
             />
 

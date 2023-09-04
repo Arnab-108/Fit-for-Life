@@ -15,7 +15,7 @@ const Log = () => {
     const [workout_plan, setWorkout] = useState('')
     const [date, setDate] = useState(new Date());
     const [editModalVisible, setEditModalVisible] = useState(false);
-    const logOptions = ['Select Goal', 'Weight Loss', 'Muscle Gain', 'Cardio Fitness'];
+    const logOptions = ['Select Goal', 'Weight Loss', 'Muscle Gain', 'Cardio Fitness','Endurance'];
 
     useEffect(() => {
         getdata()
