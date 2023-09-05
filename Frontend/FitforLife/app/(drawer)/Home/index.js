@@ -130,7 +130,10 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
+    padding: 16,
+    // backgroundColor: 'transparent',
+    // height: "70vh",
+},
   welcomeText: {
     fontSize: 24,
     fontWeight: 'bold',
